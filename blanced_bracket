@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string s;
+    cout<<"Enter the string : ";
+    cin>>s;
+    int size = s.size();
+    int count = 0;
+    for(int i=0;i<size;i++){
+        if(s[i]=='(') count++;
+        else count--;
+        if(count < 0) {
+            cout<<"not a valid string"<<endl;
+            return 1;
+        }
+    }
+    if(count != 0) cout<<"not a valid string"<<endl;
+    else cout<<"valid string"<<endl;
+    return 1;
+}
