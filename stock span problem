@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int t ;
+    cout<<"Enter The Size Of Array : ";
+    cin>>t;
+    int arr[t];
+    cout<<"Enter The Values Of Array : ";
+    for(int i=0;i<t;i++){
+        cin>>arr[i];
+    }
+    int size = t;
+    int j = 0;
+    stack<int> key;
+    stack<int> value;
+    int count;
+    while (size--){
+        count = 1;
+        while(key.size()>0 && key.top()<arr[j]){
+            count += value.top();
+            key.pop();
+            value.pop();
+        }
+        key.push(arr[j]);
+        value.push(count);
+        arr[j++] = count;
+    }
+    for(int i=0;i<t;i++){
+        cout<<arr[i]<<" ";
+    }
+}
