@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int t ;
+    cout<<"Enter The Size Of Array : ";
+    cin>>t;
+    int arr[t];
+    cout<<"Enter The Values Of Array : ";
+    for(int i=0;i<t;i++){
+        cin>>arr[i];
+    }
+    int size = t;
+    int j = size-1,x;
+    stack<int> st;
+    while (size--){
+        while(st.size()>0 && st.top()<arr[j]){
+            st.pop();
+        }
+        if(st.size()==0){
+            st.push(arr[j]);
+            arr[j--] = -1;
+        }
+        else{
+            x = arr[j];
+            arr[j--] = st.top();
+            st.push(x);
+        }
+    }
+    size = sizeof(arr)/sizeof(arr[0]);
+    for(int i=0;i<size;i++){
+        cout<<arr[i]<<" ";
+    }
+}
