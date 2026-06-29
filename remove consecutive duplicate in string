@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+void display(stack<char> st){
+    if(st.size()==0) return;
+    char x = st.top();
+    st.pop();
+    display(st);
+    cout<<x<<" ";
+    return;
+}
+int main(){
+    string s;
+    cout<<"Enter the string : ";
+    cin>>s;
+    int size = s.size();
+    stack<char> st;
+    st.push(s[0]);
+    for(int i=1;i<size;i++){
+        if(st.top() != s[i]) st.push(s[i]);
+    }
+    display(st);
+    return 1;
+}
