@@ -5,16 +5,18 @@ int main(){
     cout<<"Enter the string : ";
     cin>>s;
     int size = s.size();
-    int count = 0;
+    stack<char> st;
     for(int i=0;i<size;i++){
-        if(s[i]=='(') count++;
-        else count--;
-        if(count < 0) {
-            cout<<"not a valid string"<<endl;
-            return 1;
+        if(s[i]=='(') st.push_back('(');
+        else{
+            if(st.size() == 0){ 
+                cout<<"invalid string"<<endl;
+                return 1;
+            }
+            st.pop();
         }
     }
-    if(count != 0) cout<<"not a valid string"<<endl;
+    if(st.size != 0) cout<<"not a valid string"<<endl;
     else cout<<"valid string"<<endl;
     return 1;
 }
