@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-bool bfs(int strt,int destination,vector<list<int>> &graph,vector<bool> check){
+bool dfs(int strt,int destination,vector<list<int>> &graph,vector<bool> check){
     if(strt == destination) return true;
     else if(check[strt]){
         check[strt] = false;
