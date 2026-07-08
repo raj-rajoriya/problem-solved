@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool bfs(int strt,int destination,vector<list<int>> &graph,vector<bool> check){
+    if(strt == destination) return true;
+    else if(check[strt]){
+        check[strt] = false;
+        for(auto ele : graph[strt]){
+            if(bfs(ele,destination,graph,check)){
+                cout<<ele<<" ";
+                return true;
+            }
+        }
+        return false;
+    }
+    else return false;
+}
+void add_edges(int src,int des,vector<list<int>> &graph,bool bi_direc = true){
+    graph[src].push_back(des);
+    if(bi_direc) graph[des].push_back(src);    
+    return;
+}
+int main(){
+    vector<list<int>> graph;
+    int v,e;
+    cout<<"Enter the vertices and edges : ";
+    cin>>v>>e;
+    graph.resize(v,list<int> ());
+    int src,des;
+    vector<bool> check(v,true);
+    while(e--){
+        cout<<"Enter the source and destination : ";
+        cin>>src>>des;
+        add_edges(src,des,graph);
+    }
+    if(bfs(0,5,graph,check)){
+        cout<<0<<" ";
+    }
+}
