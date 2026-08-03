@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+int c=0;
+void merged(vector<int> &vec1,vector<int> &vec2,vector<int> &ans){
+    int a = vec1.size();
+    int b = vec2.size();
+    int i=0,j=0,k=0;
+    while(i<a && j<b){
+        if(vec1[i]<=vec2[j]) ans[k++] = vec1[i++];
+        else {
+            ans[k++] = vec2[j++];
+            c += vec1.size()-i;
+        }
+    }
+    while(i<a){
+        ans[k++] = vec1[i++];
+    }
+    while(j<b){
+        ans[k++] = vec2[j++];
+    }
+    return;
+}
+void mergesort(vector<int> &vec){
+    int st = 0;
+    int end = vec.size()-1;
+    int mid = (st+end)/2;
+    if(st == end) return;
+    vector<int> a(mid+1);
+    vector<int> b(end-mid);
+    for(int i=0;i<=mid;i++){
+        a[i] = vec[i];
+    }
+    for(int i=0,j=mid+1;j<=end;i++,j++){
+        b[i] = vec[j];
+    }
+    mergesort(a);
+    mergesort(b);
+    merged(a,b,vec);
+    a.clear();
+    b.clear();
+}
+int main(){
+    int t;
+    cout<<"Enter the size of data : ";
+    cin>>t;
+    vector<int> a(t);
+    cout<<"Enter the values of data : ";
+    for(int i=0;i<t;i++){
+      cin>>a[i];
+    }
+    mergesort(a);
+    cout<<"No of reverse order are : "<<c;
+}
