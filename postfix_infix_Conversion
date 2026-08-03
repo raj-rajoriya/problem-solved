@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string str;
+    cout<<"Enter the string : ";
+    cin>>str;
+    stack<string> val;
+    for(int i=0;i<str.size();i++){
+        if(str[i]>=48 && str[i]<=57) val.push(string(1,str[i]));
+        else{
+            char ch = str[i];
+            string str2  = val.top();
+            val.pop();
+            string str1  = val.top();
+            val.pop();
+            val.push(str1+string(1,ch)+str2);
+        }
+    }
+    cout<<val.top()<<endl;
+}
