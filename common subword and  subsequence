@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fun2(int i,int j,string &str1,string &str2){
+    int count = 0;
+    while(i<str2.size() && j<str1.size()){
+        if(str1[j++]==str2[i++])count++;
+        else break;
+    }
+    return count;
+}
+int fun(char c,int i,string &str1,string &str2,vector<vector<int>> &store){
+    int max_len = 0;
+    for(auto j:store[c-97]){
+        int a = fun2(i,j,str1,str2);
+        max_len = max(max_len,a);
+        if(max_len >= str2.size()) break;
+    }
+    return max_len;
+}
+int main(){
+    string str1;
+    string str2;
+    cout<<"Enter the two string's in lower case"<<endl;
+    cin>>str1>>str2;
+    if(str1.size()<=str2.size()){
+        string str3  = str1;
+        str1 = str2;
+        str2 = str3;
+    }
+    vector<vector<int>> store(26);
+    int max_len=0;
+    for(int i=0;i<str1.size();i++){
+        store[str1[i]-97].push_back(i);
+    }
+    for(int i=0;i<str2.size();i++){
+        if(store[str2[i]-97].size()!=0){
+            int a = fun(str2[i],i,str1,str2,store);
+            max_len = max(max_len,a);
+            if(max_len >= str2.size()) break;
+        }
+    }
+    cout<<max_len<<endl;
+}
