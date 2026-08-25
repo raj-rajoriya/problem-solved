@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int a ;
+    cin>>a;
+    vector<int> v(a+1,-1);
+    v[0] = 0;
+    v[1] = 1;
+    for(int i=2;i<=a;i++){
+        int min_ = INT_MAX;
+        for(int j = i;j>0;j /= 10){
+            if(j%10) min_ = min(min_,v[i-(j%10)]);
+        }
+        v[i] = min_ + 1;
+    }
+    cout<<v[a]<<endl;
+}
