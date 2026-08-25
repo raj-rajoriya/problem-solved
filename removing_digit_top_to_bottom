@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fun(int a,vector<int> &v){
+    if(a/10 == 0) return 1;
+    if(v[a] != -1) return v[a];
+    int min_ = INT_MAX;
+    vector<int> vec;
+    for(int i=a;i>0;i /= 10){
+        if(i%10) vec.push_back(i%10);
+    }
+    for(int i=0;i<vec.size();i++){
+        min_ = min(min_,fun(a-vec[i],v));
+    }
+    return v[a] = min_ + 1;
+}
+int main(){
+    int a;
+    cin>>a;
+    vector<int> v(a+1,-1);
+    cout<<fun(a,v)<<endl;
+}
