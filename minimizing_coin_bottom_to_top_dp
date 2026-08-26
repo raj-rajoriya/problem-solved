@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int x,n;
+    cin>>n>>x;
+    vector<int> mins;
+    vector<int> vec(x+1,-1);
+    for(int i=0;i<n;i++){
+        int c;
+        cin>>c;
+        mins.push_back(c);
+        if(c<=x) vec[c] = 1;
+    }
+    for(int i=0;i<=x;i++){
+        if(vec[i] != -1){
+            for(auto j : mins){
+                if(i+j <= x && (vec[i+j] == -1 || vec[i+j] > vec[i]+1)) vec[i+j] = vec[i]+1;
+            }
+        }
+    }
+    cout<<vec[x]<<endl;
+
+}
