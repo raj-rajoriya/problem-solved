@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fun(int x,vector<int> &vec,vector<int> &mins){
+    if(mins[x] != -1 || mins[x]==INT_MAX) return mins[x];
+    int min_ = INT_MAX;
+    for(int i=0;i<vec.size();i++){
+        if(x-vec[i]==0){
+            min_ = 0;
+            break;
+        }
+        else if(x-vec[i]<0) continue;
+        else min_ = min(min_,fun(x-vec[i],vec,mins));
+    }
+    if(min_ == INT_MAX){
+        mins[x] = INT_MAX;
+        return INT_MAX;
+    }
+    return mins[x] = min_ + 1;
+}
+int main(){
+    int n;
+    int x;
+    cin>>n>>x;
+    vector<int> vec;
+    vector<int> mins(x+1,-1);
+    for(int i=0;i<n;i++){
+        int c;
+        cin>>c;
+        vec.push_back(c);
+    }
+    int ans = fun(x,vec,mins);
+    if(ans == INT_MAX) cout<<-1<<endl;
+    else cout<<ans<<endl;
+}
