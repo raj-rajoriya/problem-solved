@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+#define mod 1000000007
+using namespace std;
+int fun(int x,vector<int> &vec){    
+    if(x==0) return 1;
+    if(vec[x] != -1) return vec[x];
+    int cal = 0;
+    for(int i=1;i<7;i++){
+        if(x-i<0 ) break;
+        cal = (cal%mod +fun(x-i,vec) % mod)%mod;
+    }
+    vec[x] = cal;
+    return cal;
+}
+int main(){
+    int n;
+    cin>>n;
+    vector<int> vec(n+1,-1);
+    cout<<fun(n,vec)<<endl;
+}
