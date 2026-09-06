@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fun(char ch,int j,vector<vector<int>> &vec,vector<vector<int>> &dp,int N){
+    if(j==N) return 0;
+    if(ch == 'a'){
+        if (dp[j][0] != -1 ) return dp[j][0];
+        else return dp[j][0] = vec[j][0] + max(fun('b',j+1,vec,dp,N),fun('c',j+1,vec,dp,N));
+    }
+    else if(ch == 'b'){
+        if (dp[j][1] != -1 ) return dp[j][1];
+        else return dp[j][1] = vec[j][1] + max(fun('a',j+1,vec,dp,N),fun('c',j+1,vec,dp,N));
+    }
+    else{
+        if (dp[j][2] != -1 ) return dp[j][2];
+        else return dp[j][2] = vec[j][2] + max(fun('a',j+1,vec,dp,N),fun('b',j+1,vec,dp,N));
+    }
+    return 0;
+}
+int main(){
+    int N;
+    cin>>N;
+    vector<vector<int>> vec(N,vector<int> (3));
+    vector<vector<int>> dp(N,vector<int> (3,-1));
+    for(int i=0;i<N;i++){
+        for(int j=0;j<3;j++){
+            cin>>vec[i][j];
+        }
+    }
+    cout<<max(fun('a',0,vec,dp,N),max(fun('b',0,vec,dp,N),fun('c',0,vec,dp,N)));
+}
