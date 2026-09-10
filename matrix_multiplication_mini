@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> fun(vector<int> &vec,vector<vector<int>> &dp,int strt,int end){
+    if(end-strt == 1) return {vec[strt],vec[end],0};
+    if(dp[strt][end] != -1 ) return {vec[strt],vec[end],dp[strt][end]};
+    int m = INT_MAX;
+    vector<int> c(3);
+    for(int i=strt+1;i<end;i++){
+        vector<int> a = fun(vec,dp,strt,i);
+        vector<int> b = fun(vec,dp,i,end);
+        int d =(a[0]*a[1]*b[1])+a[2]+b[2];
+        if(d<m){
+            m = d;
+            c[0] = a[0];
+            c[1] = b[1];
+            c[2] = d;
+        }
+    }
+    dp[strt][end] = c[2];
+    return c;
+}
+int main(){
+    vector<int> vec;
+    int size;
+    cin>>size;
+    if(size == 0 || size == 1|| size == 2) cout<<"0"<<endl;
+    else{
+        while(size--){
+            int a;
+            cin>>a;
+            vec.push_back(a);
+        }
+        vector<vector<int>> dp(vec.size(),vector<int>(vec.size()+1,-1));
+        vector<int> ans = fun(vec,dp,0,vec.size()-1);
+        cout<<ans[2];
+    }
+}
