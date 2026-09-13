@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<int> v;
+    while(n--){
+        int a;
+        cin>>a;
+        v.push_back(a);
+    }
+    vector<vector<int>> dp(v.size(),vector<int> (v.size(),0));
+    for(int i=3;i<v.size()+1;i++){
+        for(int j=0;j+i<v.size()+1;j++){
+            int k = j+i-1;
+            dp[j][k] = INT_MAX;
+            for(int z=j+1;z<k;z++){
+                dp[j][k] = min(dp[j][k],dp[j][z]+dp[z][k]+v[j]*v[k]*v[z]);
+            }
+        }
+    }
+    cout<<dp[0][v.size()-1]<<endl;
+}
