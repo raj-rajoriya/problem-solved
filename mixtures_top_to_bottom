@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+pair<int,int> fun(int strt,int end,vector<int> &vec,vector<vector<pair<int,int>>> &dp){
+    if(strt == end) return dp[strt][end] = {0,vec[strt]};
+    if(dp[strt][end].first != -1) return dp[strt][end];
+    int m = INT_MAX;
+    pair<int,int> a;
+    pair<int,int> b;
+    pair<int,int> c;
+    for(int i=strt;i<end;i++){
+        a  = fun(strt,i,vec,dp);
+        b  = fun(i+1,end,vec,dp);
+        if(m > a.first+b.first+a.second*b.second){
+            m = a.first+b.first+a.second*b.second;
+            c.first = m;
+            c.second = (a.second+b.second)%100;
+        }
+    }
+    return dp[strt][end] = c;
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin>>n;
+    while (n--){
+        int size;
+        cin>>size;
+        vector<int> vec;
+        for (int i = 0; i < size; i++) {
+            int a;
+            cin >> a;
+            vec.push_back(a);
+        }
+        vector<vector<pair<int, int>>> dp(vec.size(), vector<pair<int, int>>(vec.size(), {-1, -1}));
+        cout << fun(0, vec.size() - 1, vec, dp).first << "\n";
+    }
+
+    return 0;
+}
